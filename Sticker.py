@@ -46,6 +46,7 @@ class Sticker():
     def screenshot(self):
         self.bg_img = grab(bbox=(self.x, self.y, self.x + self.w, self.y + self.h))
         self.bg_img = self.bg_img.resize((self.w, self.h))
+        self.bg_img.show()
         self.bg_img = self.bg_img.convert('RGBA')
 
     def build(self, root):
