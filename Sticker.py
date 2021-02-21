@@ -37,6 +37,9 @@ class Sticker(QtWidgets.QMainWindow):
 
         self.setGeometry(self.x, self.y, w, h)
 
+    def mouseDoubleClickEvent(self, e):
+        QtWidgets.qApp.quit()
+
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
