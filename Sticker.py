@@ -3,12 +3,13 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QMovie
 
 class Sticker(QtWidgets.QMainWindow):
-    def __init__(self, img_path, x, y, on_top=False):
+    def __init__(self, img_path, x, y, size=1.0, on_top=False):
         super(Sticker, self).__init__()
 
         self.img_path = img_path
         self.x = x
         self.y = y
+        self.size = size
         self.on_top = on_top
 
         self.setupUi()
@@ -27,18 +28,20 @@ class Sticker(QtWidgets.QMainWindow):
         movie = QMovie(self.img_path)
         label.setMovie(movie)
         movie.start()
+        movie.stop()
 
-        self.setGeometry(
-            self.x,
-            self.y,
-            movie.frameRect().size().width(),
-            movie.frameRect().size().height()
-        )
+        w = int(movie.frameRect().size().width() * self.size)
+        h = int(movie.frameRect().size().height() * self.size)
+        movie.setScaledSize(QtCore.QSize(w, h))
+        movie.start()
+
+        self.setGeometry(self.x, self.y, w, h)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
 
-    s1 = Sticker('gif/left.gif', x=-70, y=200, on_top=True)
-    s2 = Sticker('gif/01.gif', x=500, y=500)
-    
+    s3 = Sticker('gif/amongus/red.gif', x=2000, y=1300, size=0.3)
+    s4 = Sticker('gif/amongus/orange.gif', x=1000, y=1310, size=0.3)
+    s1 = Sticker('gif/left.gif', x=-80, y=200, on_top=True)
+
     sys.exit(app.exec_())
