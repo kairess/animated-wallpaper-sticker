@@ -1,6 +1,8 @@
 from tkinter import *
 from pyscreenshot import grab
 from PIL import ImageTk, Image
+import threading
+import time
 
 class Sticker():
     def __init__(self, img_path, x, y, speed=25):
@@ -58,19 +60,22 @@ class Sticker():
             frames_tk.append(frame)
 
         def update(index):
-            frame = frames_tk[index]
+            while True:
+                frame = frames_tk[index]
 
-            label.config(image=frame)
+                label.config(image=frame)
 
-            index += 1
-            if index == len(self.frames):
-                index = 0
+                index += 1
+                if index == len(self.frames):
+                    index = 0
 
-            window.after(self.speed, update, index)
+                time.sleep(0.01)
 
         label = Label(window, borderwidth=0)
         label.pack()
-        window.after(0, update, 0)
+
+        t = threading.Timer(self.speed / 1000, update, (0,))
+        t.start()
 
 root = Tk()
 root.overrideredirect(True)
