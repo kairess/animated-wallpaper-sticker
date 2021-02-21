@@ -62,30 +62,32 @@ class Sticker():
         self.__next_call = time.time()
 
         def update(index):
-            frame = frames_tk[index]
+            while True:
+                frame = frames_tk[index]
 
-            label.config(image=frame)
+                label.config(image=frame)
 
-            index += 1
-            if index == len(self.frames):
-                index = 0
+                index += 1
+                if index == len(self.frames):
+                    index = 0
 
-            self.__next_call = self.__next_call + self.speed
-            t = threading.Timer(self.__next_call - time.time(), update, args=(index,))
-            t.daemon = True
-            t.start()
+                self.__next_call = self.__next_call + self.speed
+                interval = self.__next_call - time.time()
+                time.sleep(max(self.__next_call - time.time(), 0))
 
         label = Label(window, borderwidth=0)
         label.pack()
 
-        update(0)
+        t = threading.Thread(target=update, args=(0,))
+        t.daemon = True
+        t.start()
 
 if __name__ == '__main__':
     root = Tk()
     root.overrideredirect(True)
     root.withdraw()
 
-    sticker1 = Sticker('gif/01.gif', x=500, y=200, speed=0.1)
+    sticker1 = Sticker('gif/01.gif', x=500, y=200, speed=1)
     sticker1.build(root)
 
     sticker2 = Sticker('gif/left.gif', x=0, y=100, speed=0.025)
