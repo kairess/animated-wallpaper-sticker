@@ -43,5 +43,6 @@ if __name__ == '__main__':
     s3 = Sticker('gif/amongus/red.gif', x=2000, y=1300, size=0.3)
     s4 = Sticker('gif/amongus/orange.gif', x=1000, y=1310, size=0.3)
     s1 = Sticker('gif/left.gif', x=-80, y=200, on_top=True)
+    s2 = Sticker('gif/amongus/red_vent.gif', x=780, y=1200, size=0.3, on_top=True)
 
     sys.exit(app.exec_())
