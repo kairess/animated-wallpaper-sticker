@@ -80,14 +80,15 @@ class Sticker():
 
         update(0)
 
-root = Tk()
-root.overrideredirect(True)
-root.withdraw()
+if __name__ == '__main__':
+    root = Tk()
+    root.overrideredirect(True)
+    root.withdraw()
 
-sticker1 = Sticker('gif/01.gif', x=500, y=200, speed=0.1)
-sticker1.build(root)
+    sticker1 = Sticker('gif/01.gif', x=500, y=200, speed=0.1)
+    sticker1.build(root)
 
-sticker2 = Sticker('gif/left.gif', x=0, y=100, speed=0.025)
-sticker2.build(root)
+    sticker2 = Sticker('gif/left.gif', x=0, y=100, speed=0.025)
+    sticker2.build(root)
 
-root.mainloop()
+    root.mainloop()
