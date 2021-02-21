@@ -1,6 +1,6 @@
 from tkinter import *
 from pyscreenshot import grab
-from PIL import ImageTk, Image
+from PIL import ImageTk, Image, ImageGrab
 import threading
 import time
 
@@ -44,9 +44,11 @@ class Sticker():
             pass
 
     def screenshot(self):
+        # self.bg_img = ImageGrab.grab((self.x, self.y, self.x + self.w * 2, self.y + self.h * 2))
+        # self.bg_img = self.bg_img.crop((self.x, self.y, self.x + self.w, self.y + self.h))
+        
         self.bg_img = grab(bbox=(self.x, self.y, self.x + self.w, self.y + self.h))
         self.bg_img = self.bg_img.resize((self.w, self.h))
-        self.bg_img.show()
         self.bg_img = self.bg_img.convert('RGBA')
 
     def build(self, root):
