@@ -46,39 +46,40 @@ class Sticker():
         self.bg_img = self.bg_img.resize((self.w, self.h))
         self.bg_img = self.bg_img.convert('RGBA')
 
-    # def build(self):
+    def build(self, root):
+        window = Toplevel(root)
+        window.geometry(f'+{self.x}+{self.y}')
+        window.overrideredirect(True)
 
+        frames_tk = []
+        for frame in self.frames:
+            frame = Image.alpha_composite(self.bg_img, frame)
+            frame = ImageTk.PhotoImage(frame)
+            frames_tk.append(frame)
 
-sticker = Sticker('gif/01.gif', x=0, y=100, speed=25)
+        def update(index):
+            frame = frames_tk[index]
+
+            label.config(image=frame)
+
+            index += 1
+            if index == len(self.frames):
+                index = 0
+
+            window.after(self.speed, update, index)
+
+        label = Label(window, borderwidth=0)
+        label.pack()
+        window.after(0, update, 0)
 
 root = Tk()
-# root.wm_attributes('-topmost', True)
-# root.wm_state('zoomed')
 root.overrideredirect(True)
-root.geometry(f'+{sticker.x}+{sticker.y}')
+root.withdraw()
 
+sticker1 = Sticker('gif/01.gif', x=500, y=200, speed=25)
+sticker1.build(root)
 
-frames_tk = []
-for frame in sticker.frames:
-    frame = Image.alpha_composite(sticker.bg_img, frame)
-    frame = ImageTk.PhotoImage(frame)
-    frames_tk.append(frame)
-
-
-def update(index):
-    frame = frames_tk[index]
-
-    label.config(image=frame)
-
-    index += 1
-    if index == len(sticker.frames):
-        index = 0
-
-    root.after(sticker.speed, update, index)
-
-
-label = Label(root, borderwidth=0)
-label.pack()
-root.after(0, update, 0)
+sticker2 = Sticker('gif/left.gif', x=0, y=100, speed=25)
+sticker2.build(root)
 
 root.mainloop()
