@@ -129,6 +129,6 @@ if __name__ == '__main__':
     # s6.walk(from_xy=[0, 800], to_xy=[1850, 800], speed=240)
 
     s7 = Sticker('gif/amongus/magenta.gif', xy=[1500, 900], size=0.5, on_top=True)
-    s7.walk_diff(from_xy=[-100, 0], to_xy=[100, 0], speed=180)
+    s7.walk_diff(from_xy_diff=[-100, 0], to_xy_diff=[100, 0], speed=180)
 
     sys.exit(app.exec_())
