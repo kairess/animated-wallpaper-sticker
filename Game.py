@@ -108,7 +108,7 @@ class Sticker(QtWidgets.QMainWindow):
 
 
 if __name__ == '__main__':
-    MAX_STICKERS = 50
+    MAX_STICKERS = 30
     MAX_MOVES = 200
 
     app = QtWidgets.QApplication(sys.argv)
