@@ -1,6 +1,7 @@
 from screeninfo import get_monitors
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtGui import QMovie
+from PyQt5.QtMultimedia import QSound
 import random, sys
 
 class Sticker(QtWidgets.QMainWindow):
@@ -104,13 +105,16 @@ class Sticker(QtWidgets.QMainWindow):
         layout.addWidget(label)
         layout.addWidget(self.progress)
 
+        self.sound = QSound('gif/explosion.wav')
+
     def mousePressEvent(self, e):
+        self.sound.play()
         self.label_damage.show()
         self.health -= 10
         self.progress.setValue(self.health)
 
         if self.health <= 0:
-            self.destroy()
+            self.hide()
 
     def mouseReleaseEvent(self, e):
         self.label_damage.hide()
