@@ -89,6 +89,11 @@ class Sticker(QtWidgets.QMainWindow):
         movie.setScaledSize(QtCore.QSize(w, h))
         movie.start()
 
+        self.label_damage = QtWidgets.QLabel(label)
+        pixmap = QtGui.QPixmap('gif/damage.png').scaled(w, h)
+        self.label_damage.setPixmap(pixmap)
+        self.label_damage.hide()
+
         self.setGeometry(self.xy[0], self.xy[1], w, h)
 
         self.progress = QtWidgets.QProgressBar()
@@ -100,11 +105,15 @@ class Sticker(QtWidgets.QMainWindow):
         layout.addWidget(self.progress)
 
     def mousePressEvent(self, e):
+        self.label_damage.show()
         self.health -= 10
         self.progress.setValue(self.health)
 
         if self.health <= 0:
             self.destroy()
+
+    def mouseReleaseEvent(self, e):
+        self.label_damage.hide()
 
 
 if __name__ == '__main__':
